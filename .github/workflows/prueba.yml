@@ -1,0 +1,33 @@
+name: Prueba
+on:
+  push:
+
+jobs:
+  comparar_tokens:
+    name: Comparar DEV_TOKEN y LOCAL_DEV_TOKEN
+    runs-on: self-hosted
+
+    env:
+      DEV_TOKEN_SECRET: ${{ secrets.DEV_TOKEN }}
+      LOCAL_DEV_TOKEN_VAR: ${{ vars.LOCAL_DEV_TOKEN }}
+
+    steps:
+      - name: Comparar valores en PowerShell
+        shell: powershell
+        run: |
+          # Recuperamos las variables de entorno
+          $secretToken = $env:DEV_TOKEN_SECRET
+          $localToken = $env:LOCAL_DEV_TOKEN_VAR
+
+          # Verificamos si alguna está vacía antes de comparar
+          if ([string]::IsNullOrEmpty($secretToken) -or [string]::IsNullOrEmpty($localToken)) {
+              Write-Host "⚠️ Error: Uno o ambos tokens no están configurados correctamente."
+              exit 1
+          }
+
+          # Realizamos la comparación
+          if ($secretToken -eq $localToken) {
+              Write-Host "✅ ¡Los tokens coinciden perfectamente!"
+          } else {
+              Write-Host "❌ Los tokens NO coinciden."
+          }

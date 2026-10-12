@@ -19,7 +19,7 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.head_ref || github.ref_name }}
-          token: ${{ secrets.OWNER_TOKEN }}
+          token: ${{ secrets.PROD_TOKEN }}
 
       - name: Incrementar versión en el README
         env:

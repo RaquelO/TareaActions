@@ -19,7 +19,7 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.head_ref || github.ref_name }}
-          token: ${{ secrets.OWNER_TOKEN }}
+          token: ${{ secrets.DEV_TOKEN }}
 
       - name: Registrar la rama en el README
         env:
